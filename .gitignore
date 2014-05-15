@@ -95,3 +95,5 @@ packages/
 *.pch
 *.ncb
 *.exp
+
+[Ss]ample/

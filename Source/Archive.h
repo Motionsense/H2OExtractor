@@ -5,8 +5,11 @@
 #include <fstream>
 #include <sstream>
 #include <vector>
+#include <direct.h>
 
 #include "Types.h"
+#include "FileUtils.h"
+#include "StringUtils.h"
 #include "DebugUtils.h"
 #include "ArchiveComment.h"
 #include "ArchiveHeader.h"
@@ -24,13 +27,16 @@ class Archive
 
 		uint64_t readComment(uint64_t streamPos);
 		uint64_t readHeader(uint64_t streamPos);
+		uint64_t readFileList(uint64_t streamPos);
 
 		void open(char* szFilePath);
+		void extractByIndex(uint32_t index);
+		void extractAll();
 		void close();
 
 		ArchiveComment m_Comment;
 		ArchiveHeader m_Header;
-
+		std::vector<ArchiveFile> m_FileList;
 
 
 	protected:

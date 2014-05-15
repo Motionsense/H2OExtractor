@@ -108,6 +108,14 @@ SOURCE=.\Source\ArchiveFile.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\Source\ArchiveFileName.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\Source\ArchiveFileNameChunk.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\Source\ArchiveFileNameDesc.h
 # End Source File
 # Begin Source File
@@ -129,6 +137,14 @@ SOURCE=.\Source\ArchiveComment.cpp
 # Begin Source File
 
 SOURCE=.\Source\ArchiveFile.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\Source\ArchiveFileName.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\Source\ArchiveFileNameChunk.cpp
 # End Source File
 # Begin Source File
 
@@ -162,6 +178,22 @@ SOURCE=.\Source\DebugUtils.cpp
 # Begin Source File
 
 SOURCE=.\Source\DebugUtils.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\Source\FileUtils.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\Source\FileUtils.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\Source\StringUtils.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\Source\StringUtils.h
 # End Source File
 # Begin Source File
 

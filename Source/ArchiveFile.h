@@ -12,7 +12,7 @@ struct ArchiveFile
 	uint32_t FileId;
 	uint32_t RawSize;
 	uint32_t CompressedSize;
-	uint32_t Offest;
+	uint64_t Offest;
 	char CRC32[4];
 	uint32_t UnknownConstant;
 };
