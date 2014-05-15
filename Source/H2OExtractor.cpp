@@ -7,6 +7,6 @@ int main(int argc, char* argv[])
 	Archive h2o("Input.H2O");
 
 	DB::debugLog("\nExtracting files...", "\n", NULL);
-	h2o.extractAll();
+	//h2o.extractAll();
 	return 0;
 }

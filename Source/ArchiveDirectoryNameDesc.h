@@ -1,10 +1,10 @@
-/* ArchiveFileNameDesc.h */
+/* ArchiveDirectoryNameDesc.h */
 #pragma once
 
 #include "Types.h"
 
 #pragma pack(push, 1)
-struct ArchiveFileNameDesc
+struct ArchiveDirectoryNameDesc
 {
 	uint32_t CompressedSize;
 	uint32_t RawSize;

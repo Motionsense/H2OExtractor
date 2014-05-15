@@ -104,6 +104,10 @@ SOURCE=.\Source\ArchiveComment.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\Source\ArchiveDirectoryNameDesc.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\Source\ArchiveFile.h
 # End Source File
 # Begin Source File
