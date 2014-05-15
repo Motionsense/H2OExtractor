@@ -4,11 +4,16 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include <vector>
 
 #include "Types.h"
 #include "DebugUtils.h"
 #include "ArchiveComment.h"
 #include "ArchiveHeader.h"
+#include "ArchiveFile.h"
+#include "ArchiveFileNameDesc.h"
+#include "ArchiveFileNameChunk.h"
+#include "ArchiveFileName.h"
 
 class Archive
 {
@@ -25,6 +30,8 @@ class Archive
 
 		ArchiveComment m_Comment;
 		ArchiveHeader m_Header;
+
+
 
 	protected:
 		std::ifstream m_hH2O;

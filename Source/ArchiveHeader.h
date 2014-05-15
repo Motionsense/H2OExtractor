@@ -1,5 +1,6 @@
 /* ArchiveHeader.h */
 #pragma once
+
 #include "Types.h"
 
 #pragma pack(push, 1)

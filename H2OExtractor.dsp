@@ -104,6 +104,14 @@ SOURCE=.\Source\ArchiveComment.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\Source\ArchiveFile.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\Source\ArchiveFileNameDesc.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\Source\ArchiveHeader.h
 # End Source File
 # End Group
@@ -117,6 +125,14 @@ SOURCE=.\Source\Archive.cpp
 # Begin Source File
 
 SOURCE=.\Source\ArchiveComment.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\Source\ArchiveFile.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\Source\ArchiveFileNameDesc.cpp
 # End Source File
 # Begin Source File
 
@@ -152,5 +168,9 @@ SOURCE=.\Source\DebugUtils.h
 SOURCE=.\Source\Types.h
 # End Source File
 # End Group
+# Begin Source File
+
+SOURCE=.\README.md
+# End Source File
 # End Target
 # End Project
