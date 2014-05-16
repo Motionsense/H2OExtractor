@@ -1,10 +1,10 @@
-/* ArchiveFileNameChunk.h */
+/* ArchiveDirectoryNameChunk.h */
 #pragma once
 
 #include "ArchiveCompressedStringChunk.h"
 
 #pragma pack(push, 1)
-struct ArchiveFileNameChunk: public ArchiveCompressedStringChunk
+struct ArchiveDirectoryNameChunk: public ArchiveCompressedStringChunk
 {
 	// derived struct
 };

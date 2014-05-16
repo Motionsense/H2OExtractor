@@ -7,7 +7,7 @@
 struct ArchiveHeader
 {
 	uint32_t Version;
-	uint32_t FileCount;
+	uint32_t FileCount;		// may not be accurate due to empty entries
 	uint64_t CompressedSize;
 	uint64_t RawSize;
 };

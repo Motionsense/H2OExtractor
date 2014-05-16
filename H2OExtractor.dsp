@@ -104,15 +104,23 @@ SOURCE=.\Source\ArchiveComment.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\Source\ArchiveCompressedStringChunk.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\Source\ArchiveCompressedStringDesc.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\Source\ArchiveDirectoryNameChunk.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\Source\ArchiveDirectoryNameDesc.h
 # End Source File
 # Begin Source File
 
 SOURCE=.\Source\ArchiveFile.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\Source\ArchiveFileName.h
 # End Source File
 # Begin Source File
 
@@ -144,10 +152,6 @@ SOURCE=.\Source\ArchiveFile.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\Source\ArchiveFileName.cpp
-# End Source File
-# Begin Source File
-
 SOURCE=.\Source\ArchiveFileNameChunk.cpp
 # End Source File
 # Begin Source File
@@ -175,29 +179,81 @@ SOURCE=.\Source\H2OExtractor.h
 # Begin Group "Utils"
 
 # PROP Default_Filter ""
+# Begin Group "Blast"
+
+# PROP Default_Filter ""
 # Begin Source File
 
-SOURCE=.\Source\DebugUtils.cpp
+SOURCE=.\Source\Utils\Blast\blast.c
 # End Source File
 # Begin Source File
 
-SOURCE=.\Source\DebugUtils.h
+SOURCE=.\Source\Utils\Blast\blast.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\Source\FileUtils.cpp
+SOURCE=.\Source\Utils\Blast\blastHandler.c
 # End Source File
 # Begin Source File
 
-SOURCE=.\Source\FileUtils.h
+SOURCE=.\Source\Utils\Blast\blastHandler.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\Source\StringUtils.cpp
+SOURCE=.\Source\Utils\Blast\crc32.c
 # End Source File
 # Begin Source File
 
-SOURCE=.\Source\StringUtils.h
+SOURCE=.\Source\Utils\Blast\crc32.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\Source\Utils\Blast\README.md
+# End Source File
+# Begin Source File
+
+SOURCE=.\Source\Utils\Blast\types.h
+# End Source File
+# End Group
+# Begin Group "dirent"
+
+# PROP Default_Filter ""
+# Begin Source File
+
+SOURCE=.\Source\Utils\dirent\ChangeLog
+# End Source File
+# Begin Source File
+
+SOURCE=.\Source\Utils\dirent\dirent.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\Source\Utils\dirent\README.md
+# End Source File
+# End Group
+# Begin Source File
+
+SOURCE=.\Source\Utils\DebugUtils.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\Source\Utils\DebugUtils.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\Source\Utils\FileUtils.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\Source\Utils\FileUtils.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\Source\Utils\StringUtils.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\Source\Utils\StringUtils.h
 # End Source File
 # Begin Source File
 

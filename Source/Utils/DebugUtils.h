@@ -3,7 +3,7 @@
 
 #include <iostream>
 #include <iomanip>
-#include "Types.h"
+#include "../Types.h"
 
 namespace DB {
 	void printint64(uint64_t i);

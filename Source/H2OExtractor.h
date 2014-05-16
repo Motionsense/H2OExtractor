@@ -6,4 +6,8 @@
 
 #include <stdio.h>
 
+//#define H2O_PRINT_FILE_LIST
+//#define H2O_PRINT_FILE_DESC
+//#define H2O_PRINT_DIR_INHEIRTANCY
+
 #include "Archive.h"
