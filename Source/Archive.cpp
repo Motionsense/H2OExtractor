@@ -205,7 +205,7 @@ void Archive::open(char* szFilePath)
 
 	DB::debugLog("\nDirectoryParents Section: ", "", NULL);
 	curPos = readDirectoryParents(curPos);
-	
+
 	bool success;
 	// Parse compressed file names
 	success = parseStringChunk(m_FileNameDesc, m_FileNameChunk, m_pCompressedFileNameChunk, m_FileNameList);
@@ -244,29 +244,17 @@ void Archive::open(char* szFilePath)
 		DB::debugLog("---------------", "", "");
 	#endif
 #endif
+	
 
 }
 
 // TODO: Refactor this function.
 void Archive::extractByIndex(uint32_t index)
 {
-	ArchiveFile& rFile = m_FileList[index];
-	char* buffer = new char[rFile.CompressedSize];
-	m_hH2O.seekg(rFile.Offest, std::ios::beg);
-	m_hH2O.read(buffer, rFile.CompressedSize);
-
-	const char* dirPath = "output/";
-	if (checkPathType(dirPath)!=TYPE_DIR)
-		mkdir(dirPath);
-
-	/*
-	// generate file name and create directory
-	char fileName[128];
-	char fullPath[128];
-	getFileName(index, ".wav", fileName);
-	getFullPath("output/", fileName, fullPath);
-	*/
-
+	//
+	// Generate File Name
+	//
+	// TODO: Add folder structure
 	char fileName[128];
 	memset(fileName, 0, 128);
 	if (m_FileList[index].FileNameIndex==-1)
@@ -277,35 +265,72 @@ void Archive::extractByIndex(uint32_t index)
 	{
 		wtoc(m_FileNameList[index], fileName);
 	}
-	/*
-	char pathName[128];
-	memset(pathName, 0, 128);
-	if(m_FileList[index].FolderNameIndex==-1)
+	char fullPath[256];
+	getFullPath("output/", fileName, fullPath);
+#ifdef H2O_PRINT_WHEN_EXTRACT
+	DB::debugLog(fileName, "", "");
+#endif
+
+	//
+	// Extract File
+	//
+	ArchiveFile& rFile = m_FileList[index];
+	char* pFileBuffer;
+	m_hH2O.seekg(rFile.Offest, std::ios::beg);
+
+	// Decompress buffer if compressed
+	if (rFile.CompressionTag!=0)
 	{
+		ArchiveCompressedFileData tFileDesc;
+		m_hH2O.read((char*)&tFileDesc, sizeof(ArchiveCompressedFileData));
+	#ifdef H2O_PRINT_WHEN_EXTRACT
+		DB::debugLog("- CompressedSize: ", tFileDesc.CompressedSize, "");
+		DB::debugLog("- RawSize: ", tFileDesc.RawSize, "");
+		DB::debugLog("- CRC32[hex]: ", tFileDesc.CRC32, NULL, true);
+	#endif
+		pFileBuffer = new char[rFile.CompressedSize];
+		m_hH2O.read(pFileBuffer, rFile.CompressedSize);
+		char* pDecompressedBuffer = new char[tFileDesc.RawSize];
+		bool result = runblast_mem2mem(pFileBuffer, tFileDesc.RawSize, pDecompressedBuffer, *(uint32_t*)(tFileDesc.CRC32));
+		if (result)
+		{
+		#ifdef H2O_PRINT_WHEN_EXTRACT
+			DB::debugLog("- Decompress: ", "Success!", " - output decompressed data");
+		#endif
+			delete[] pFileBuffer;	// delete the compressed buffer since we don't need it anymore
+			pFileBuffer = pDecompressedBuffer;
+		}
+		else
+		{
+		#ifdef H2O_PRINT_WHEN_EXTRACT
+			DB::debugLog("- Decompress: ", "Fail!", " - output compressed data");
+		#endif
+			delete[] pDecompressedBuffer;
+		}
+		pDecompressedBuffer = NULL;
 	}
 	else
 	{
-		wtoc(m_DirectoryNameList[index], pathName);
+		pFileBuffer = new char[rFile.CompressedSize];
+		m_hH2O.read(pFileBuffer, rFile.CompressedSize);
 	}
-	*/
-	char fullPath[256];
-	getFullPath("output/", fileName, fullPath);
 
 	// write file
 	std::ofstream destFile;
 	destFile.open(fullPath, std::ofstream::binary);
-	destFile.write(buffer, rFile.CompressedSize);
+	destFile.write(pFileBuffer, rFile.CompressedSize);
 	destFile.close();
 	
-	delete[] buffer;
-
-#ifdef H2O_PRINT_WHEN_EXTRACT
-	DB::debugLog(fileName, "", "");
-#endif
+	delete[] pFileBuffer;
+	pFileBuffer = NULL;
 }
 
 void Archive::extractAll()
 {
+	const char* dirPath = "output/";
+	if (checkPathType(dirPath)!=TYPE_DIR)
+		mkdir(dirPath);
+
 	for (int i=0; i<m_FileList.size(); i++)	//m_Header.FileCount
 	{
 		extractByIndex(i);

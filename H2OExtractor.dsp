@@ -104,6 +104,10 @@ SOURCE=.\Source\ArchiveComment.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\Source\ArchiveCompressedFileData.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\Source\ArchiveCompressedStringChunk.h
 # End Source File
 # Begin Source File

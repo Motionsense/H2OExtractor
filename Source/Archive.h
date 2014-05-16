@@ -22,6 +22,7 @@
 #include "ArchiveFileNameChunk.h"
 #include "ArchiveDirectoryNameDesc.h"
 #include "ArchiveDirectoryNameChunk.h"
+#include "ArchiveCompressedFileData.h"
 
 #include "./Utils/Blast/blastHandler.h"
 
