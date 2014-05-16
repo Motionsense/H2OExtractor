@@ -43,7 +43,7 @@ uint64_t Archive::readComment(uint64_t streamPos)
 	memset(m_Comment.szComments, 0, length);
 	m_hH2O.read(m_Comment.szComments, length-1);
 
-#if _DEBUG
+#ifdef H2O_DEBUG_LOG
 	DB::debugLog("- ArchiveHeader: ", m_Comment.szHeader, NULL);
 	DB::debugLog("- VersionInfo: ", m_Comment.VersionInfo, NULL);
 	DB::debugLog("- Comments: ", m_Comment.szComments, NULL);
@@ -56,7 +56,7 @@ uint64_t Archive::readHeader(uint64_t streamPos)
 	m_hH2O.seekg(streamPos, std::ios::beg);
 	m_hH2O.read((char*)&m_Header, sizeof(ArchiveHeader));
 
-#if _DEBUG
+#ifdef H2O_DEBUG_LOG
 	DB::debugLog("- Version: ", m_Header.Version, NULL);
 	DB::debugLog("- FileCount: ", m_Header.FileCount, NULL);
 	DB::debugLog("- CompressedSize: ", m_Header.CompressedSize, NULL);
@@ -75,7 +75,7 @@ uint64_t Archive::readFileList(uint64_t streamPos)
 		if (curFile.RawSize!=0 && curFile.CompressedSize!=0)
 			m_FileList.push_back(curFile);	// file is valid
 
-	#if defined(_DEBUG) && defined (H2O_PRINT_FILE_DESC)
+	#if defined(H2O_DEBUG_LOG) && defined (H2O_PRINT_FILE_DESC)
 		DB::debugLog("- CompressionTag: ", curFile.CompressionTag, NULL);
 		DB::debugLog("- FolderNameIndex: ", curFile.FolderNameIndex, NULL);
 		DB::debugLog("- FileNameIndex: ", curFile.FileNameIndex, NULL);
@@ -96,7 +96,7 @@ uint64_t Archive::readFileNameDesc(uint64_t streamPos)
 	m_hH2O.seekg(streamPos, std::ios::beg);
 	m_hH2O.read((char*)&m_FileNameDesc, sizeof(ArchiveFileNameDesc));
 
-	#if _DEBUG
+	#ifdef H2O_DEBUG_LOG
 		DB::debugLog("- CompressedSize: ", m_FileNameDesc.CompressedSize, NULL);
 		DB::debugLog("- RawSize: ", m_FileNameDesc.RawSize, NULL);
 		DB::debugLog("- CRC32[hex]: ", m_FileNameDesc.CRC32, NULL, true);
@@ -118,7 +118,7 @@ uint64_t Archive::readDirectoryNameDesc(uint64_t streamPos)
 	m_hH2O.seekg(streamPos, std::ios::beg);
 	m_hH2O.read((char*)&m_DirectoryNameDesc, sizeof(ArchiveDirectoryNameDesc));
 
-	#if _DEBUG
+	#ifdef H2O_DEBUG_LOG
 		DB::debugLog("- CompressedSize: ", m_DirectoryNameDesc.CompressedSize, NULL);
 		DB::debugLog("- RawSize: ", m_DirectoryNameDesc.RawSize, NULL);
 		DB::debugLog("- CRC32[hex]: ", m_DirectoryNameDesc.CRC32, NULL, true);
@@ -142,7 +142,7 @@ uint64_t Archive::readDirectoryParents(uint64_t streamPos)
 	m_arrDirectoryParents = new int32_t[m_DirectoryCount];
 	m_hH2O.read((char*)m_arrDirectoryParents, sizeof(*m_arrDirectoryParents)*m_DirectoryCount);
 
-#if _DEBUG
+#ifdef H2O_DEBUG_LOG
 	DB::debugLog("Directory Count: ", m_DirectoryCount, NULL);
 	#ifdef H2O_PRINT_DIR_INHEIRTANCY
 		for (int i=0; i<m_DirectoryCount; i++)
@@ -159,13 +159,13 @@ bool Archive::parseStringChunk(ArchiveCompressedStringDesc& desc, ArchiveCompres
 {
 	// Decompress
 	char* pDecompressedBuffer = new char[desc.RawSize];
-	bool result = (bool)runblast_mem2mem(pCompressedBuffer, desc.RawSize, pDecompressedBuffer, *(uint32_t*)(desc.CRC32));
-	
+	bool result = runblast_mem2mem(pCompressedBuffer, desc.RawSize, pDecompressedBuffer, *(uint32_t*)(desc.CRC32));
+
 	// Serialize the header of the chunk
 	memcpy(&chunk, pDecompressedBuffer, sizeof(chunk));
 	
 	// Serialize the file names
-	outputVector.clear();
+	//outputVector.clear();
 	uint32_t length = 0;
 	uint32_t offest = sizeof(chunk);
 	while (offest < desc.RawSize)
@@ -174,7 +174,7 @@ bool Archive::parseStringChunk(ArchiveCompressedStringDesc& desc, ArchiveCompres
 		length = wcslen(wszStartingPos);
 		if (length==0)
 			break;
-		wchar_t* wszString = new wchar_t[length];
+		wchar_t* wszString = new wchar_t[length+1];
 		wcscpy(wszString, wszStartingPos);
 		outputVector.push_back(wszString);
 		offest += length*sizeof(wchar_t) + 2;	// plus the length of null teminator
@@ -209,40 +209,40 @@ void Archive::open(char* szFilePath)
 	bool success;
 	// Parse compressed file names
 	success = parseStringChunk(m_FileNameDesc, m_FileNameChunk, m_pCompressedFileNameChunk, m_FileNameList);
-#ifdef _DEBUG
+#ifdef H2O_DEBUG_LOG
 	if (success)
 		DB::debugLog("\nFileNameChunk - decompress: ", "Success!", "");
 	else
 		DB::debugLog("\nFileNameChunk - decompress: ", "Fail!", "");
 	DB::debugLog("FileNameCount: ", m_FileNameChunk.StringsCount, "");
 	DB::debugLog("ChunkSize: ", m_FileNameChunk.ChunkSize, "");
-	DB::debugLog("FileNames: ", "", "");
 	#ifdef H2O_PRINT_FILE_LIST
+		DB::debugLog("FileNames: ", "", "");
 		for (int i=0; i<m_FileNameList.size(); i++)
 		{
 			std::wcout << m_FileNameList[i] << std::endl;
 		}
+		DB::debugLog("---------------", "", "");
 	#endif
-	DB::debugLog("---------------", "", "");
 #endif
 
 	// Parse compressed directory names
 	success = parseStringChunk(m_DirectoryNameDesc, m_DirectoryNameChunk, m_pCompressedDirectoryNameChunk, m_DirectoryNameList);
-#ifdef _DEBUG
+#ifdef H2O_DEBUG_LOG
 	if (success)
 		DB::debugLog("\nDirectoryNameChunk - decompress: ", "Success!", "");
 	else
 		DB::debugLog("\nDirectoryNameChunk - decompress: ", "Fail!", "");
 	DB::debugLog("DirectoryNameCount: ", m_DirectoryNameChunk.StringsCount, "");
 	DB::debugLog("ChunkSize: ", m_DirectoryNameChunk.ChunkSize, "");
-	DB::debugLog("DirectoryNames: ", "", "");
 	#ifdef H2O_PRINT_FILE_LIST
+		DB::debugLog("DirectoryNames: ", "", "");
 		for (int j=0; j<m_DirectoryNameList.size(); j++)
 		{
 			std::wcout << m_DirectoryNameList[j] << std::endl;
 		}
+		DB::debugLog("---------------", "", "");
 	#endif
-	DB::debugLog("---------------", "", "");
 #endif
 
 }
@@ -298,6 +298,10 @@ void Archive::extractByIndex(uint32_t index)
 	destFile.close();
 	
 	delete[] buffer;
+
+#ifdef H2O_PRINT_WHEN_EXTRACT
+	DB::debugLog(fileName, "", "");
+#endif
 }
 
 void Archive::extractAll()

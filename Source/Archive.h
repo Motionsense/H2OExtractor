@@ -1,11 +1,15 @@
 /* Archive.h */
 #pragma once
 
+#include "predefine.h"
+
 #include <iostream>
 #include <fstream>
 #include <sstream>
 #include <vector>
 #include <direct.h>
+#include <exception>
+#include <new>          // std::bad_alloc
 
 #include "Types.h"
 #include "./Utils/FileUtils.h"

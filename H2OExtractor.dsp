@@ -175,6 +175,10 @@ SOURCE=.\Source\H2OExtractor.cpp
 
 SOURCE=.\Source\H2OExtractor.h
 # End Source File
+# Begin Source File
+
+SOURCE=.\Source\predefine.h
+# End Source File
 # End Group
 # Begin Group "Utils"
 
