@@ -15,10 +15,11 @@ Archive::Archive(char* szFilePath)
 Archive::~Archive()
 {
 	close();
-	delete[] m_arrDirectoryParents;
-	delete[] m_pCompressedFileNameChunk;
-	delete[] m_pCompressedDirectoryNameChunk;
-	delete[] m_Comment.szComments;
+	SAFE_DELETE_ARRAY(m_arrDirectoryParents);
+	SAFE_DELETE_ARRAY(m_pCompressedFileNameChunk);
+	SAFE_DELETE_ARRAY(m_pCompressedDirectoryNameChunk);
+	Util::Gen::clearVectorOfArray(m_DirectoryNameList);
+	Util::Gen::clearVectorOfArray(m_FileNameList);
 }
 
 uint64_t Archive::readComment(uint64_t streamPos)
@@ -328,7 +329,7 @@ void Archive::extractByIndex(uint32_t index)
 void Archive::extractAll()
 {
 	const char* dirPath = "output/";
-	if (checkPathType(dirPath)!=TYPE_DIR)
+	if (Util::File::checkPathType(dirPath)!=Util::File::TYPE_DIR)
 		mkdir(dirPath);
 
 	for (int i=0; i<m_FileList.size(); i++)	//m_Header.FileCount
@@ -352,4 +353,7 @@ void Archive::init()
 	memset(&m_Header, 0, sizeof(m_Header));
 	memset(&m_Header, 0, sizeof(m_FileNameDesc));
 	memset(&m_Header, 0, sizeof(m_DirectoryNameDesc));
+	m_pCompressedDirectoryNameChunk = NULL;
+	m_pCompressedFileNameChunk = NULL;
+	m_arrDirectoryParents = NULL;
 }

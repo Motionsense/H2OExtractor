@@ -9,5 +9,7 @@
 #include "./dirent/dirent.h"
 #include "../Types.h"
 
-enum PathType { TYPE_DIR, TYPE_FILE, TYPE_NOT_EXIST };
-PathType checkPathType(const char* dirPath);
+namespace Util { namespace File {
+	enum PathType { TYPE_DIR, TYPE_FILE, TYPE_NOT_EXIST };
+	PathType checkPathType(const char* dirPath);
+}}

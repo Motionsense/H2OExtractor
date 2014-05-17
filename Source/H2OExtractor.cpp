@@ -14,5 +14,6 @@ int main(int argc, char* argv[])
 	DB::debugLog("\nPress Any Key to Exist", "\n", NULL);
 	getchar();
 
+	h2o.close();
 	return 0;
 }

@@ -146,10 +146,6 @@ SOURCE=.\Source\ArchiveHeader.h
 
 SOURCE=.\Source\Archive.cpp
 # End Source File
-# Begin Source File
-
-SOURCE=.\Source\ArchiveComment.cpp
-# End Source File
 # End Group
 # End Group
 # Begin Group "Main"
@@ -238,6 +234,10 @@ SOURCE=.\Source\Utils\FileUtils.cpp
 # Begin Source File
 
 SOURCE=.\Source\Utils\FileUtils.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\Source\Utils\GeneralUtils.hpp
 # End Source File
 # Begin Source File
 

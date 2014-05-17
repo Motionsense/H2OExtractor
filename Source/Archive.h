@@ -15,6 +15,7 @@
 #include "./Utils/FileUtils.h"
 #include "./Utils/StringUtils.h"
 #include "./Utils/DebugUtils.h"
+#include "./Utils/GeneralUtils.hpp"
 #include "ArchiveComment.h"
 #include "ArchiveHeader.h"
 #include "ArchiveFile.h"
