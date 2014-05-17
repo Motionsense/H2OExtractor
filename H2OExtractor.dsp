@@ -150,22 +150,6 @@ SOURCE=.\Source\Archive.cpp
 
 SOURCE=.\Source\ArchiveComment.cpp
 # End Source File
-# Begin Source File
-
-SOURCE=.\Source\ArchiveFile.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\Source\ArchiveFileNameChunk.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\Source\ArchiveFileNameDesc.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\Source\ArchiveHeader.cpp
-# End Source File
 # End Group
 # End Group
 # Begin Group "Main"
