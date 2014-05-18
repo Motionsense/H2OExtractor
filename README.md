@@ -6,5 +6,15 @@ A .h2o archive extractor, has the ability to read and manipulate archives of WOT
 
 ==============================================================================
 ##### Usage
-Copy and rename a h2o archive as Input.h2o under the same directory with H2OExtractor.
-Run H2OExtractor to extract.  
+H2OExtractor <command> <archive_path>
+
+Command:
+```sh
+extract - extract all file of archive to the output dir
+info - display infomations about the archive
+```
+
+Example:
+```sh
+H2OExtractor extract Input.H2O
+```
