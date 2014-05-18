@@ -3,17 +3,37 @@
 
 int main(int argc, char* argv[])
 {
-	printf("H2OExtractor\n============================\n");
-	Archive h2o("Input.H2O");
+	printf("H2OExtractor - fucckz 2014\n\n============================\n");
+	
+	// no command
+	if (argc < 2) {
+		printf("Usage:\n");
+		printf("H2OExtractor <command> <archive_path>\n");
+		printf("Command:\n");
+		printf("extract - extract all file of archive to output dir\n");
+		printf("info - display infomations about the archive\n");
+		return 0;
+	}
 
-	DB::debugLog("\nPress Any Key to Extract Files", "\n", NULL);
-	getchar();
+	// print archive's name
+	char* cmd = argv[1];
+	char* path = argv[2];
+	printf("[%s]\n", path);
 
-	h2o.extractAll();
+	// do stuff
+	Archive h2o(path);
+	if (strcmp(cmd, "info") == 0)
+	{
+		h2o.displayInfo();
+	}
+	else if (strcmp(cmd, "extract") == 0)
+	{
+		h2o.extractAll();
+	}
+	h2o.close();
 
+	// end
 	DB::debugLog("\nPress Any Key to Exist", "\n", NULL);
 	getchar();
-
-	h2o.close();
 	return 0;
 }

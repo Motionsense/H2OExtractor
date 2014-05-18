@@ -49,6 +49,7 @@ class Archive
 		void extractByIndex(uint32_t index);
 		void extractAll();
 		void close();
+		void displayInfo();
 
 		// Header
 		ArchiveComment m_Comment;
