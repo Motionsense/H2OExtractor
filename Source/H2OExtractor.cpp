@@ -3,12 +3,12 @@
 
 int main(int argc, char* argv[])
 {
-	printf("H2OExtractor - fucckz 2014\n\n============================\n");
+	printf("H2OExtractor v1.0 - fucckz\n\n============================\n");
 	
 	// no command
 	if (argc < 2) {
 		printf("Usage:\n");
-		printf("H2OExtractor <command> <archive_path>\n");
+		printf("H2OExtractor <command> <archive_path>\n\n");
 		printf("Command:\n");
 		printf("extract - extract all file of archive to output dir\n");
 		printf("info - display infomations about the archive\n");
